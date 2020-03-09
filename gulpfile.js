@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
 const prettyData = require('gulp-pretty-data');
  
-gulp.task('minify', function () {
+gulp.task('minify', () => {
   // 压缩wxml
   gulp.src('dist/**/*.wxml')
     .pipe(htmlmin({
@@ -23,5 +23,4 @@ gulp.task('minify', function () {
       }
     }))
     .pipe(gulp.dest('dist'))
-
 });
