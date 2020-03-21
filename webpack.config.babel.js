@@ -5,11 +5,10 @@ import path, {
   resolve
 } from 'path';
 import { DefinePlugin, EnvironmentPlugin } from 'webpack';
-import webpack from 'webpack';
-import WXAppWebpackPlugin from 'wxapp-webpack-plugin';
+// import webpack from 'webpack';
+import WxappModulePlugin from 'webpack-wxapp-module-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
-import uglifyPlugin from 'uglifyjs-webpack-plugin';
 
 const { NODE_ENV } = process.env;
 const environment = NODE_ENV;
@@ -28,8 +27,8 @@ const relativeFileLoader = (ext = '[ext]') => {
 export default {
   entry: {
     app: [
-      `es6-promise/dist/es6-promise.auto${JSON.stringify(environment) === 'development' ? '.min' : ''}.js`,
-      './src/app.js',
+      __dirname + `es6-promise/dist/es6-promise.auto${JSON.stringify(environment) === 'development' ? '.min' : ''}.js`,
+      __dirname + './src/app.js',
     ],
   },
   output: {
@@ -168,15 +167,7 @@ export default {
         '**/*.js'
       ]
     }),
-    new WXAppWebpackPlugin(),
-    new uglifyPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_debugger: NODE_ENV === 'development' ? false : true,
-        drop_console: NODE_ENV === 'development' ? false : true
-      }
-    })
+    new WxappModulePlugin()
   ],
   watchOptions: {
     ignored: /dist|manifest/,

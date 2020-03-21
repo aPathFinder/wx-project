@@ -2,6 +2,5 @@
 App({
   data: {},
   globalData: {},
-  onLaunch: function () {}
-  
+  onLaunch() {}
 })
